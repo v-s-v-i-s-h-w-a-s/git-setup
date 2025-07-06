@@ -1,6 +1,7 @@
 # Git, GitHub & GitHub Actions - 45-60 Minute Workshop
 
 ## Workshop Overview
+
 **Duration:** 45-60 minutes  
 **Format:** Fast-paced hands-on demonstration  
 **Goal:** Understand Git → GitHub → CI/CD pipeline with real examples
@@ -8,9 +9,11 @@
 ---
 
 ## Pre-Workshop Setup (5 minutes)
+
 **Students do this simultaneously while you explain concepts**
 
 ### Quick Tool Check
+
 ```bash
 # Verify installations (students type along)
 git --version
@@ -22,18 +25,20 @@ git config --global user.email "your.email@example.com"
 
 ## Module 1: Git Basics → GitHub (15 minutes)
 
-### 🎯 Real-World Timeline Example
+### Real-World Timeline Example
+
 **Scenario: You're building a calculator app for a company**
 
 ```
 Day 1: Start project → Initialize Git
-Day 2: Add calculator → Commit changes  
+Day 2: Add calculator → Commit changes
 Day 3: Push to GitHub → Share with team
 Day 4: New feature request → Create branch
 Day 5: Complete feature → Merge via Pull Request
 ```
 
 ### Lightning Hands-On
+
 ```bash
 # 1. Initialize project (30 seconds)
 mkdir calculator-project && cd calculator-project
@@ -70,6 +75,7 @@ git commit -m "Add basic calculator functions"
 ```
 
 ### Connect to GitHub (2 minutes)
+
 ```bash
 # Create repository on GitHub (show students the UI)
 # Then connect:
@@ -78,6 +84,7 @@ git push -u origin main
 ```
 
 ### Feature Branch Workflow (3 minutes)
+
 ```bash
 # Create feature branch
 git checkout -b feature/advanced-operations
@@ -103,7 +110,7 @@ git push -u origin feature/advanced-operations
 
 ## Module 2: Understanding CI/CD Pipeline (10 minutes)
 
-### 🔄 CI/CD Timeline Visualization
+### CI/CD Timeline Visualization
 
 ```
 Code Push → GitHub → Trigger Pipeline → Run Tests → Deploy
@@ -112,6 +119,7 @@ Code Push → GitHub → Trigger Pipeline → Run Tests → Deploy
 ```
 
 ### Real Company Example Timeline
+
 **"What happens when you push code at 9:00 AM"**
 
 ```
@@ -120,15 +128,16 @@ Code Push → GitHub → Trigger Pipeline → Run Tests → Deploy
 09:00:02 - Pipeline starts: "Building application..."
 09:00:30 - Install dependencies complete
 09:01:00 - Code quality check (SonarQube) starts
-09:02:00 - SonarQube analysis complete ✅
+09:02:00 - SonarQube analysis complete
 09:02:30 - Unit tests start running
-09:03:00 - All tests pass ✅
+09:03:00 - All tests pass
 09:03:30 - Deploy to staging environment
-09:05:00 - Deployment complete ✅
+09:05:00 - Deployment complete
 09:05:30 - Slack notification: "Deployment successful!"
 ```
 
 ### Create Complete CI/CD Pipeline (5 minutes)
+
 ```bash
 # Switch back to main and create workflow
 git checkout main
@@ -150,26 +159,26 @@ jobs:
   build-and-quality:
     runs-on: ubuntu-latest
     steps:
-    - name: 📥 Checkout code
+    - name: Checkout code
       uses: actions/checkout@v3
       with:
         fetch-depth: 0  # Needed for SonarQube
-    
-    - name: 🐍 Set up Python
+
+    - name: Set up Python
       uses: actions/setup-python@v3
       with:
         python-version: 3.9
-    
-    - name: 📦 Install dependencies
+
+    - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install pytest pytest-cov flake8
-    
-    - name: 🔍 Code Quality Check (Linting)
+
+    - name: Code Quality Check (Linting)
       run: |
         flake8 calculator.py --max-line-length=88 --extend-ignore=E203
-    
-    - name: 🔬 SonarQube Analysis
+
+    - name: SonarQube Analysis
       uses: SonarSource/sonarcloud-github-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -182,26 +191,26 @@ jobs:
     strategy:
       matrix:
         python-version: [3.8, 3.9, '3.10']
-    
+
     steps:
-    - name: 📥 Checkout code
+    - name: Checkout code
       uses: actions/checkout@v3
-    
-    - name: 🐍 Set up Python ${{ matrix.python-version }}
+
+    - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
-    
-    - name: 📦 Install dependencies
+
+    - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install pytest pytest-cov
-    
-    - name: 🧪 Run tests with coverage
+
+    - name: Run tests with coverage
       run: |
         pytest tests/ --cov=calculator --cov-report=xml --cov-report=html
-    
-    - name: 📊 Upload coverage reports
+
+    - name: Upload coverage reports
       uses: codecov/codecov-action@v3
       with:
         file: ./coverage.xml
@@ -211,10 +220,10 @@ jobs:
     needs: build-and-quality
     runs-on: ubuntu-latest
     steps:
-    - name: 📥 Checkout code
+    - name: Checkout code
       uses: actions/checkout@v3
-    
-    - name: 🛡️ Run security scan
+
+    - name: Run security scan
       uses: aquasecurity/trivy-action@master
       with:
         scan-type: 'fs'
@@ -225,27 +234,27 @@ jobs:
     needs: [test, security]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    
+
     steps:
-    - name: 📥 Checkout code
+    - name: Checkout code
       uses: actions/checkout@v3
-    
-    - name: 🚀 Deploy to Staging
+
+    - name: Deploy to Staging
       run: |
-        echo "🏗️  Building application..."
-        echo "📦 Packaging application..."
-        echo "🚀 Deploying to staging environment..."
-        echo "✅ Deployment successful!"
-        echo "🌐 App URL: https://calculator-staging.example.com"
-    
+        echo " Building application..."
+        echo " Packaging application..."
+        echo " Deploying to staging environment..."
+        echo " Deployment successful!"
+        echo " App URL: https://calculator-staging.example.com"
+
     - name: 🔍 Health Check
       run: |
-        echo "🩺 Running health checks..."
-        echo "✅ All systems operational"
-    
-    - name: 📢 Notify Team
+        echo " Running health checks..."
+        echo " All systems operational"
+
+    - name:  Notify Team
       run: |
-        echo "📢 Deployment notification sent to team"
+        echo " Deployment notification sent to team"
 EOF
 ```
 
@@ -254,6 +263,7 @@ EOF
 ## Module 3: Tests & SonarQube Setup (10 minutes)
 
 ### Create Test Suite (3 minutes)
+
 ```bash
 # Create tests directory and files
 mkdir tests
@@ -277,7 +287,7 @@ def test_multiply():
 def test_divide():
     assert divide(10, 2) == 5.0
     assert divide(7, 2) == 3.5
-    
+
     with pytest.raises(ValueError):
         divide(5, 0)
 
@@ -295,6 +305,7 @@ touch tests/__init__.py
 ```
 
 ### SonarQube Configuration (2 minutes)
+
 ```bash
 # Create SonarQube properties file
 cat > sonar-project.properties << 'EOF'
@@ -318,6 +329,7 @@ EOF
 ```
 
 ### Quick SonarQube Setup Demo (3 minutes)
+
 **Show students the SonarCloud interface:**
 
 1. **Go to SonarCloud.io** → Sign up with GitHub
@@ -327,6 +339,7 @@ EOF
 5. **Show Quality Gates** → Explain code coverage, bugs, vulnerabilities
 
 ### Visual SonarQube Benefits Timeline
+
 ```
 Without SonarQube:
 Bug in Production → Customer Complains → 2 hours debugging → Fix → Deploy
@@ -344,6 +357,7 @@ Code Push → SonarQube detects issue → Fix immediately → Deploy
 ## Module 4: Multi-Language Quick Demo (8 minutes)
 
 ### Node.js Example (3 minutes)
+
 ```bash
 # Create Node.js example
 mkdir -p examples/nodejs
@@ -389,6 +403,7 @@ cd ../..
 ```
 
 ### Java Example (2 minutes)
+
 ```bash
 # Create Java structure
 mkdir -p examples/java/src/main/java
@@ -397,7 +412,7 @@ public class Calculator {
     public static int add(int a, int b) {
         return a + b;
     }
-    
+
     public static void main(String[] args) {
         System.out.println("Java Calculator: 5 + 3 = " + add(5, 3));
     }
@@ -421,6 +436,7 @@ EOF
 ```
 
 ### Language-Specific Pipeline Differences (2 minutes)
+
 **Show quick workflow comparison:**
 
 ```yaml
@@ -430,7 +446,7 @@ EOF
 - run: pip install -r requirements.txt
 - run: pytest
 
-# Node.js Pipeline  
+# Node.js Pipeline
 - name: Set up Node.js
   uses: actions/setup-node@v3
 - run: npm ci
@@ -447,6 +463,7 @@ EOF
 ## Module 5: Push & Watch Pipeline (5 minutes)
 
 ### Final Commit & Push
+
 ```bash
 # Add all files
 git add .
@@ -455,6 +472,7 @@ git push origin main
 ```
 
 ### Live Pipeline Demo (5 minutes)
+
 **Show students in real-time:**
 
 1. **GitHub Actions Tab** → Watch pipeline start
@@ -464,11 +482,12 @@ git push origin main
 5. **Deploy Stage** → Show deployment simulation
 
 ### Pipeline Success Timeline
+
 ```
-✅ Pipeline Complete in 3 minutes:
+ Pipeline Complete in 3 minutes:
 00:00 - Code pushed to GitHub
 00:05 - Build & Quality check complete
-00:45 - SonarQube analysis complete  
+00:45 - SonarQube analysis complete
 01:30 - Tests complete (100% coverage)
 02:00 - Security scan complete
 02:30 - Deploy to staging complete
@@ -479,17 +498,19 @@ git push origin main
 
 ## Module 6: Key Takeaways & Next Steps (5 minutes)
 
-### 🎯 What We Built
+### What We Built
+
 - **Complete Git workflow** with branching and merging
 - **Professional CI/CD pipeline** with 4 stages
 - **Quality gates** with SonarQube integration
 - **Multi-language examples** for different projects
 
-### 📊 Business Impact Timeline
+### Business Impact Timeline
+
 ```
 Before CI/CD:
 Manual testing → 2 hours
-Manual deployment → 1 hour  
+Manual deployment → 1 hour
 Bug discovery → 2 days
 Total: 2 days + 3 hours
 
@@ -500,20 +521,24 @@ Bug discovery → 2 minutes
 Total: 7 minutes
 ```
 
-### 🚀 Next Steps for Students
+### Next Steps for Students
+
 1. **Fork this repository** and modify it
 2. **Add your own features** and watch the pipeline run
 3. **Set up SonarCloud** for your personal projects
 4. **Try different languages** using the examples provided
 
-### 📚 Quick Resources
+### Quick Resources
+
 - **GitHub Actions Marketplace** - Pre-built actions
 - **SonarCloud** - Free for open source projects
 - **Codecov** - Code coverage reporting
 - **GitHub Skills** - Interactive learning
 
-### 🏆 Challenge Assignment
+### Challenge Assignment
+
 **Create your own project with:**
+
 - ✅ Git repository with branches
 - ✅ CI/CD pipeline with tests
 - ✅ SonarQube integration
@@ -522,9 +547,10 @@ Total: 7 minutes
 
 ---
 
-## ⚡ Quick Reference Commands
+## Quick Reference Commands
 
 ### Git Essentials
+
 ```bash
 git init                    # Initialize repository
 git add .                   # Stage all changes
@@ -535,6 +561,7 @@ git merge feature          # Merge branch
 ```
 
 ### Pipeline Debugging
+
 ```bash
 # Check workflow syntax locally
 npm install -g @github/workflows-cli
@@ -545,31 +572,36 @@ workflows validate .github/workflows/ci-cd-pipeline.yml
 ```
 
 ### SonarQube Quick Setup
+
 1. **SonarCloud.io** → Import GitHub repo
-2. **Copy SONAR_TOKEN** 
+2. **Copy SONAR_TOKEN**
 3. **GitHub Settings** → Secrets → Add token
 4. **Push code** → Watch analysis
 
 ---
 
-## 🔧 Common Issues & Solutions
+## Common Issues & Solutions
 
 **Git Permission Denied:**
+
 ```bash
 git remote set-url origin https://github.com/username/repo.git
 ```
 
 **Pipeline Fails:**
+
 - Check indentation in YAML files
 - Verify secrets are set in GitHub
 - Check file paths in workflow
 
 **SonarQube Not Working:**
+
 - Verify SONAR_TOKEN is set
 - Check sonar-project.properties file
 - Ensure repository is public or has SonarCloud access
 
 **Tests Not Running:**
-- Check test file naming (test_*.py)
+
+- Check test file naming (test\_\*.py)
 - Verify pytest installation
 - Check import statements in tests
