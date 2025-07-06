@@ -1,5 +1,5 @@
 # Git, GitHub & GitHub Actions Workshop Guide
-## 🎯 Workshop Overview (45-60 minutes)
+## Workshop Overview (45-60 minutes)
 
 ### Learning Objectives
 By the end of this workshop, students will understand:
@@ -10,9 +10,9 @@ By the end of this workshop, students will understand:
 
 ---
 
-## 📚 Section 1: Git Fundamentals (15 minutes)
+## Section 1: Git Fundamentals (15 minutes)
 
-### 🌟 Real-World Analogy: The Time Machine Story
+### Real-World Analogy: The Time Machine Story
 Think of Git like **The Flash's timeline** or **Loki's multiverse**:
 - **Repository = The Timeline/Universe**: Your entire project's history
 - **Commits = Time Points**: Snapshots you can travel back to
@@ -21,7 +21,7 @@ Think of Git like **The Flash's timeline** or **Loki's multiverse**:
 - **Clone = Creating a Copy of the Universe**: Getting your own version
 - **Fork = Creating an Alternate Universe**: Making your own parallel version
 
-### 🔧 Hands-On: Git Basics
+### Hands-On: Git Basics
 
 #### Step 1: Initial Setup
 ```bash
@@ -61,7 +61,7 @@ git commit -m "Initial commit: Created README"
 git log --oneline
 ```
 
-**🧠 Explanation**: 
+**Explanation**: 
 - `git init` creates a new timeline
 - `git add` prepares changes for our time point
 - `git commit` creates a permanent time point we can return to
@@ -77,26 +77,33 @@ ls -la
 ls -la .git/
 ```
 
-**🏗️ The .git Folder Explained - Your Repository's Brain**
+**The .git Folder Explained - Your Repository's Brain**
 
 Think of the `.git` folder as the **control center of a spaceship**:
 
 ```
 📁 .git/ (The Spaceship's Control Center)
-├── 📋 HEAD (Current Location Pointer)
-├── 🗂️ config (Ship's Settings)
-├── 📚 index (Staging Area - Ready for Launch)
-├── 🏷️ refs/ (Navigation Bookmarks)
+├── HEAD (Current Location Pointer)
+|
+├── config (Ship's Settings)
+|
+├── index (Staging Area - Ready for Launch)
+|
+├── refs/ (Navigation Bookmarks)
 │   ├── heads/ (Local Branch Pointers)
 │   ├── remotes/ (Remote Branch Pointers)
 │   └── tags/ (Important Milestone Markers)
-├── 🗄️ objects/ (The Treasure Vault)
+|
+├── objects/ (The Treasure Vault)
 │   ├── 00-ff/ (256 Folders for All Git Objects)
 │   ├── info/ (Object Database Info)
 │   └── pack/ (Compressed Archives)
-├── 📝 logs/ (Ship's Log - History of Changes)
-├── 🎣 hooks/ (Automated Scripts)
-└── 🛡️ info/ (Repository Info & Settings)
+|
+├── logs/ (Ship's Log - History of Changes)
+|
+├── hooks/ (Automated Scripts)
+|
+└── info/ (Repository Info & Settings)
 ```
 
 **Key Files and Their Purposes:**
@@ -147,7 +154,7 @@ find .git/objects -type f | head -5
 
 ## 🔍 Deep Dive: Inside the .git Folder
 
-### 🗂️ Understanding Git's Internal Structure
+### Understanding Git's Internal Structure
 
 Based on your `.git` folder structure, let's explore what each component does:
 
@@ -162,7 +169,7 @@ ORIG_HEAD      ← Previous HEAD position (backup)
 packed-refs    ← Compressed reference storage
 ```
 
-#### 2. The Objects Database - Git's Heart 💚
+#### 2. The Objects Database - Git's Heart 
 ```
 objects/
 ├── 00-ff/     ← 256 folders (first 2 chars of SHA-1)
@@ -176,7 +183,7 @@ objects/
 - **Commit**: Snapshot + metadata
 - **Tag**: Annotated reference
 
-#### 3. References System 🏷️
+#### 3. References System 
 ```
 refs/
 ├── heads/     ← Local branches
@@ -184,7 +191,7 @@ refs/
 └── tags/      ← Tagged releases
 ```
 
-#### 4. The Hooks Directory 🎣
+#### 4. The Hooks Directory
 ```
 hooks/
 ├── pre-commit.sample    ← Run before commit
@@ -193,14 +200,14 @@ hooks/
 └── ... (13 more hooks)
 ```
 
-#### 5. Logs - The History Keeper 📜
+#### 5. Logs - The History Keeper 
 ```
 logs/
 ├── HEAD                    ← All HEAD movements
 └── refs/heads/main         ← Branch-specific history
 ```
 
-### 🔧 Hands-On: Explore Your .git Folder
+### Hands-On: Explore Your .git Folder
 
 ```bash
 # 1. See current branch pointer
@@ -228,7 +235,7 @@ ls -la .git/objects/pack/
 # Shows compressed object archives
 ```
 
-### 🎯 What Happens When You Git?
+### What Happens When You Git?
 
 **When you `git add file.txt`:**
 1. Git creates a blob object in `objects/`
@@ -246,7 +253,7 @@ ls -la .git/objects/pack/
 2. Updates `refs/remotes/origin/main`
 3. Updates `FETCH_HEAD`
 
-### 🚨 Important Notes
+### Important Notes
 
 **Never manually edit .git files!** 
 - Use Git commands instead
@@ -260,7 +267,7 @@ ls -la .git/objects/pack/
 
 ---
 
-### 🔄 Clone vs Fork: Understanding the Difference
+### Clone vs Fork: Understanding the Difference
 
 **Clone = Getting a Copy**
 - Like downloading a movie to watch
@@ -272,7 +279,7 @@ ls -la .git/objects/pack/
 - You own this version and can modify it freely
 - Can contribute back to the original
 
-### 🔧 Hands-On: GitHub Workflow
+### Hands-On: GitHub Workflow
 
 #### Step 1: Create Repository on GitHub
 1. Go to GitHub.com
@@ -324,23 +331,23 @@ git commit -m "Add basic calculator functionality"
 git push origin feature/add-calculator
 ```
 
-**🧠 Explanation**: 
+**Explanation**: 
 - Branches let us work on features without affecting main timeline
 - Push sends our local changes to GitHub
 - Each branch is like a parallel universe of our project
 
 ---
 
-## 🤖 Section 3: GitHub Actions - CI/CD Pipeline (20 minutes)
+## Section 3: GitHub Actions - CI/CD Pipeline (20 minutes)
 
-### 🏗️ The Assembly Line Analogy
+### The Assembly Line Analogy
 Think of GitHub Actions like an **automated factory assembly line**:
 - **Trigger = Start Button**: When someone pushes code
 - **Jobs = Assembly Stations**: Build, Test, Deploy
 - **Steps = Workers**: Individual tasks at each station
 - **Artifacts = Products**: What gets passed between stations
 
-### 🔧 Hands-On: Create Your First CI/CD Pipeline
+### Hands-On: Create Your First CI/CD Pipeline
 
 #### Step 1: Create Workflow Directory
 ```bash
@@ -382,7 +389,7 @@ jobs:
     
     - name: Display build info
       run: |
-        echo "🏗️ Build completed successfully!"
+        echo "Build completed successfully!"
         python --version
 
   test:
@@ -405,7 +412,7 @@ jobs:
     
     - name: Run tests
       run: |
-        echo "🧪 Running tests..."
+        echo "Running tests..."
         python -m pytest -v || echo "No tests found, but that's okay for demo!"
     
     - name: Test our calculator
@@ -432,7 +439,7 @@ jobs:
     
     - name: Code Quality Check (Demo)
       run: |
-        echo "🔍 Running code quality analysis..."
+        echo " Running code quality analysis..."
         echo "✅ Code quality check passed!"
 
   deploy:
@@ -446,9 +453,9 @@ jobs:
     
     - name: Deploy to Production
       run: |
-        echo "🚀 Deploying to production..."
+        echo "Deploying to production..."
         echo "✅ Deployment successful!"
-        echo "📝 Deployment URL: https://my-app.example.com"
+        echo "Deployment URL: https://my-app.example.com"
 ```
 
 #### Step 3: Create Test File
@@ -479,7 +486,7 @@ git commit -m "Add CI/CD pipeline with testing"
 git push origin feature/add-calculator
 ```
 
-**🧠 Explanation**: 
+**Explanation**: 
 - The pipeline runs automatically when code is pushed
 - Each job runs in isolation (like separate assembly lines)
 - `needs:` creates dependencies between jobs
@@ -487,47 +494,47 @@ git push origin feature/add-calculator
 
 ---
 
-## 📊 Section 4: Pipeline Visualization & Timeline (5 minutes)
+## Section 4: Pipeline Visualization & Timeline (5 minutes)
 
-### 🎬 The Movie Production Timeline
+### The Movie Production Timeline
 
 ```
-🎬 MOVIE PRODUCTION TIMELINE
-├── 📝 Script Writing (Code Development)
-├── 🎭 Casting (Dependencies)
-├── 🎥 Filming (Build)
-├── ✂️ Editing (Testing)
-├── 🎵 Sound/Effects (Code Quality)
-├── 🎪 Premiere (Deploy)
-└── 🏆 Box Office (Monitoring)
+MOVIE PRODUCTION TIMELINE
+├──  Script Writing (Code Development)
+├──  Casting (Dependencies)
+├──  Filming (Build)
+├──  Editing (Testing)
+├──  Sound/Effects (Code Quality)
+├──  Premiere (Deploy)
+└──  Box Office (Monitoring)
 
-🤖 GITHUB ACTIONS TIMELINE
-├── 💻 Code Push (Trigger)
-├── 🏗️ Build Job (Compile/Setup)
-├── 🧪 Test Job (Run Tests)
-├── 🔍 Quality Job (SonarQube)
-├── 🚀 Deploy Job (Production)
-└── 📊 Monitor (Feedback)
+GITHUB ACTIONS TIMELINE
+├──  Code Push (Trigger)
+├──  Build Job (Compile/Setup)
+├──  Test Job (Run Tests)
+├──  Quality Job (SonarQube)
+├──  Deploy Job (Production)
+└──  Monitor (Feedback)
 ```
 
-### 📈 Visual Pipeline Flow
+### Visual Pipeline Flow
 ```
 Developer → Push Code → GitHub → Actions Triggered
     ↓
-Build Stage: 🏗️ Compile & Setup
+Build Stage:  Compile & Setup
     ↓
 Parallel Execution:
-├── Test Stage: 🧪 Run Tests
-└── Quality Stage: 🔍 Code Analysis
+├── Test Stage:  Run Tests
+└── Quality Stage: Code Analysis
     ↓
-Deploy Stage: 🚀 Production Release
+Deploy Stage: Production Release
     ↓
-Monitor: 📊 Track Performance
+Monitor: Track Performance
 ```
 
 ---
 
-## 🛠️ Section 5: Multi-Language Support (5 minutes)
+## Section 5: Multi-Language Support (5 minutes)
 
 ### Language-Specific Examples
 
@@ -569,7 +576,7 @@ Monitor: 📊 Track Performance
 
 ---
 
-## 🎯 Quick Reference Commands
+## Quick Reference Commands
 
 ### Git Essentials
 ```bash
@@ -599,7 +606,7 @@ gh workflow run ci-cd.yml
 
 ---
 
-## 🎓 Key Takeaways
+## Key Takeaways
 
 1. **Git is your time machine** - commits are save points
 2. **GitHub is your collaboration hub** - share and work together
@@ -609,7 +616,7 @@ gh workflow run ci-cd.yml
 
 ---
 
-## 🏃‍♂️ Next Steps
+## Next Steps
 
 1. **Practice**: Create your own repository and pipeline
 2. **Explore**: Try different actions from the GitHub Marketplace
@@ -619,7 +626,7 @@ gh workflow run ci-cd.yml
 
 ---
 
-## 💡 Pro Tips
+## Pro Tips
 
 - **Always write meaningful commit messages**
 - **Use branch naming conventions** (feature/, bugfix/, hotfix/)
@@ -630,7 +637,7 @@ gh workflow run ci-cd.yml
 
 ---
 
-## 🤝 Workshop Conclusion
+## Workshop Conclusion
 
 Congratulations! You've just learned the fundamentals of modern software development workflow. You now understand how to:
 
@@ -639,4 +646,4 @@ Congratulations! You've just learned the fundamentals of modern software develop
 - Automate testing and deployment with GitHub Actions
 - Integrate code quality checks with SonarQube
 
-Remember: These tools are like learning to drive - practice makes perfect! 🚗💨
+Remember: These tools are like learning to drive - practice makes perfect! 
