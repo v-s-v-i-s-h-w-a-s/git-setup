@@ -1,1 +1,1 @@
-# git-setup
+# Git, GitHub and GitHub Actions tools setup and hands-on
