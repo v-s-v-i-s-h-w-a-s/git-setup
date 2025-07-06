@@ -1,4 +1,4 @@
-# Git, GitHub and GitHub Actions tools setup and hands-onGuide
+# Git, GitHub and GitHub Actions tools setup and hands-on Guide
 *Duration: 45-60 minutes | Smooth Progressive Flow*
 
 ## Workshop Flow Overview 
