@@ -199,13 +199,13 @@ git log --oneline
 ## Part 4: Forking vs Cloning - The Key Difference (10 minutes)
 
 ### Instructor Setup (Do this before class)
-Create a demo repository: `https://github.com/YOUR-USERNAME/workshop-demo-repo`
+Create a demo repository: `https://github.com/v-s-v-i-s-h-w-a-s/git-demo.git`
 
 ### Fork vs Clone Demonstration
 
 #### Step 1: Students Fork First
 **Instructions for Students:**
-1. **Go to:** `https://github.com/YOUR-USERNAME/workshop-demo-repo`
+1. **Go to:** `https://github.com/v-s-v-i-s-h-w-a-s/git-demo.git`
 2. **Click "Fork"** in the top right
 3. **Select your account** as the destination
 4. **Wait for fork to complete**
@@ -218,8 +218,8 @@ Create a demo repository: `https://github.com/YOUR-USERNAME/workshop-demo-repo`
 #### Step 2: Clone Your Fork
 ```bash
 # Clone YOUR fork (not the original)
-git clone https://github.com/YOUR-STUDENT-USERNAME/workshop-demo-repo.git
-cd workshop-demo-repo
+git clone https://github.com/YOUR-STUDENT-USERNAME/git-demo-repo.git
+cd git-demo-repo
 
 # Check remotes
 git remote -v
@@ -229,7 +229,7 @@ git remote -v
 #### Step 3: Add Upstream Remote
 ```bash
 # Add connection to original repository
-git remote add upstream https://github.com/INSTRUCTOR-USERNAME/workshop-demo-repo.git
+git remote add upstream https://github.com/v-s-v-i-s-h-w-a-s/git-demo.git
 
 # Verify remotes
 git remote -v
