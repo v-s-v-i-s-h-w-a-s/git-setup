@@ -362,7 +362,7 @@ Monitor: Track Performance
 
 ---
 
-## 🛠️ Section 5: Multi-Language Support (5 minutes)
+## Section 5: Multi-Language Support (5 minutes)
 
 ### Language-Specific Examples
 
